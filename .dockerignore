@@ -1,0 +1,8 @@
+.git
+.env
+target
+certs/*.key
+certs/*.p12
+certs/*.jks
+Dockerfile
+*.log

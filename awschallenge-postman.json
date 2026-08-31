@@ -1,0 +1,86 @@
+{
+  "info": {
+    "_postman_id": "8f8b2f6d-6c22-4c5f-9b31-2a7a4f4f7d80",
+    "name": "AWS Challenge API",
+    "description": "Requests for testing the PersonController endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "List persons",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/persons",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "persons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains a person', function () {",
+              "    const person = pm.response.json();",
+              "    pm.expect(person.id).to.be.a('number');",
+              "    pm.expect(person.name).to.eql('Ada Lovelace');",
+              "    pm.expect(person.email).to.eql('ada@example.com');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ada Lovelace\",\n  \"email\": \"ada@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/persons",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "persons"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

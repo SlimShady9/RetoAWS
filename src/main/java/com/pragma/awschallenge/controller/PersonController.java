@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +31,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonResponseMapping> createPerson(PersonRequestMapping personRequest) {
+    public ResponseEntity<PersonResponseMapping> createPerson(@RequestBody PersonRequestMapping personRequest) {
         Person person = personRequest.toPerson();
         Person savedPerson = personRepository.save(person);
         return ResponseEntity.ok(PersonResponseMapping.fromPerson(savedPerson));

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.pragma.awschallenge.repository.PersonRepository;
@@ -38,8 +39,8 @@ class AwschallengeApplicationTests {
 		personRepository.deleteAll();
 
 		mockMvc.perform(post("/api/persons")
-					.param("name", "Ada Lovelace")
-					.param("email", "ada@example.com"))
+					.contentType(MediaType.APPLICATION_JSON)
+					.content("{\"name\":\"Ada Lovelace\",\"email\":\"ada@example.com\"}"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").isNumber())
 				.andExpect(jsonPath("$.name").value("Ada Lovelace"))
